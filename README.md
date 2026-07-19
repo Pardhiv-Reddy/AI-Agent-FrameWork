@@ -195,8 +195,3 @@ The framework automatically discovers and registers tools during startup.
 Most AI agent projects rely heavily on existing frameworks.
 This project was built from scratch to understand and implement the core building blocks of an AI agent system, including planning, dependency resolution, asynchronous execution, tool orchestration, and conversation management.
 The goal is to provide a lightweight, extensible framework that can serve as a foundation for building more capable AI applications.
-
----
-
-# License
-MIT License
