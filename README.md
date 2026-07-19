@@ -1,5 +1,5 @@
 # AgentFlow
-> A lightweight asynchronous AI agent framework built from scratch in Python that uses planning, dependency-aware execution, and pluggable tools to solve user requests.
+> AI agent framework built from scratch in Python that uses planning, dependency-aware execution, and pluggable tools to solve user requests.
 
 ---
 
