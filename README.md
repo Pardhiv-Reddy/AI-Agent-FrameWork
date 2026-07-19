@@ -30,20 +30,16 @@
                  Structured Plan
                       │
                       ▼
-                 Dependency Parser
-                      │
-                      ▼
           Dependency-Aware Executor
                       │
-      ┌───────────────┴───────────────┐
-      │               │               │
-      ▼               ▼               ▼
- GitHub Tool     Wikipedia Tool     LLM Tool
-      │               │               │
-      └───────────────┬───────────────┘
-                      │
+        ┌─────────────┴─────────────┐
+        │                           │
+        ▼                           ▼
+   GitHub Tool                 LLM Tool
+        │                           │
+        └─────────────┬─────────────┘
                       ▼
-                 Final Response
+               Final Response
 ```
 
 ---
