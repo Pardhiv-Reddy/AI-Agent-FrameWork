@@ -11,8 +11,9 @@ class GithubTool(BaseTool):
         self.client = httpx.AsyncClient()
     async def execute(self,task:Task,dep:dict[str,Any])->list[dict[str,Any]]:
         res = await self.client.get(self.url,params = task.arguments)
+        if res.status_code() == 503 :
+            logger.error("Github Error")
         res.raise_for_status()
-        logger.error("Error in Github")
         response = res.json()
         logger.info("Github Fetched Successfully")
         return [
