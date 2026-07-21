@@ -2,6 +2,8 @@ from llm.base import BaseTool
 import httpx
 from typing import Any
 from models.models import ToolMetaData,GitResult,Task,Parameter
+import logging
+logger = logging.getLogger(__name__)
 class GithubTool(BaseTool):
     def __init__(self,url:str = "https://api.github.com/search/repositories"):
         super().__init__()
@@ -10,7 +12,9 @@ class GithubTool(BaseTool):
     async def execute(self,task:Task,dep:dict[str,Any])->list[dict[str,Any]]:
         res = await self.client.get(self.url,params = task.arguments)
         res.raise_for_status()
+        logger.error("Error in Github")
         response = res.json()
+        logger.info("Github Fetched Successfully")
         return [
             GitResult(
                 name=repo["name"],

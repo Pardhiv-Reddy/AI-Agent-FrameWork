@@ -9,7 +9,9 @@ from toolregistry import ToolRegistry
 from executor.executor import Executor
 from utils.Builder import Builder
 from utils.auto_register import AutoRegister
+from utils.logger import setup_logging
 async def main():
+    setup_logging()
     async with httpx.AsyncClient(timeout=None) as client:
         llm = OllamaLLM(client)
         planner = Planner(llm)
@@ -32,6 +34,10 @@ async def main():
                 plan_response = await planner.plan(req)
                 plan = PlanParser.parse(plan_response.content)
                 result,final = await executor.execute(plan)
+                if final is None:
+                    raise RuntimeError(
+                        "No final task found."
+                    )
                 for task in plan.tasks:
                     print(f"\n[{task.tool.upper()} - {task.action}]")
                     print(result[task.id])
