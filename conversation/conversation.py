@@ -20,8 +20,6 @@ class Conversation:
             role="system",
             content=self._system_prompt
         )
-    def needs_summary(self)->bool:
-        return len(self._messages)>self._max_messages
     def clear(self):
         self._messages.clear()
     def build_messages(self):
