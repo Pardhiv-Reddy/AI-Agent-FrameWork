@@ -2,10 +2,12 @@ import pkgutil
 import inspect
 import importlib
 import tools
+import logging
 from toolregistry import ToolRegistry
 from llm.base import BaseTool
 from llm.ollama import OllamaLLM
 from tools.llm import LLM
+logger = logging.getLogger(__name__)
 class AutoRegister:
     @staticmethod
     def auto_register(registry:ToolRegistry,llm:OllamaLLM):
@@ -21,3 +23,4 @@ class AutoRegister:
                     else:
                         tool = cls()
                     registry.register(tool)
+                    logger.info("%s tool has been register successfully",name)             

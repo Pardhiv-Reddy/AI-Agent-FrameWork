@@ -1,5 +1,7 @@
 from .loader import Loader
 from toolregistry import ToolRegistry
+import logging
+logger = logging.getLogger(__name__)
 class Builder:
     @staticmethod
     def build_prompt(register:ToolRegistry)->str:
@@ -15,6 +17,7 @@ class Builder:
             for param in meta.parameters:
                 text += f"- {param}\n"
             text += "\n"
+        logger.info("Prompt Built Successfully")
         return "\n\n".join(
             [
                 Loader.load("role.md"),

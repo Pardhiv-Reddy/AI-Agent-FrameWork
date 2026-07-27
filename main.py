@@ -9,7 +9,12 @@ from toolregistry import ToolRegistry
 from executor.executor import Executor
 from utils.Builder import Builder
 from utils.auto_register import AutoRegister
+from utils.logger import setup_logging
+import logging
 async def main():
+    setup_logging()
+    logger = logging.getLogger(__name__)
+    logger.info("Application Started")
     async with httpx.AsyncClient(timeout=None) as client:
         llm = OllamaLLM(client)
         planner = Planner(llm)
@@ -22,6 +27,7 @@ async def main():
             while True:
                 inp = input("Chat : ")
                 if(inp.lower().strip() == "bye"):
+                    logger.info("Application ShutDown Requested")
                     print("Until we Meet Again")
                     return
                 conv.add_user(inp)
@@ -32,6 +38,10 @@ async def main():
                 plan_response = await planner.plan(req)
                 plan = PlanParser.parse(plan_response.content)
                 result,final = await executor.execute(plan)
+                if final is None:
+                    raise RuntimeError(
+                        "No final task found."
+                    )
                 for task in plan.tasks:
                     print(f"\n[{task.tool.upper()} - {task.action}]")
                     print(result[task.id])
